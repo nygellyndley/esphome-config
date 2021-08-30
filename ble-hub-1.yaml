@@ -1,0 +1,98 @@
+esphome:
+  name: ble-hub-1
+  platform: ESP32
+  board: nodemcu-32s
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ble Hub 1 Fallback Hotspot"
+    password: !secret fallback_password
+
+captive_portal:
+
+# Enable logging
+logger:
+
+api:
+  password: !secret esphome_api_password
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+
+ota:
+  password: !secret ota_password
+
+web_server:
+  port: 80
+  auth:
+    username: !secret esphome_web_username
+    password: !secret esphome_web_password
+
+esp32_ble_tracker:
+
+sensor:
+  - platform: xiaomi_lywsd03mmc
+    mac_address: !secret ble_bedroom_mac_address
+    bindkey: !secret ble_bedroom_bindkey
+    temperature:
+      name: "Bedroom Temperature"
+    humidity:
+      name: "Bedroom Humidity"
+    battery_level:
+      name: "Bedroom Battery Level"
+  - platform: xiaomi_lywsd03mmc
+    mac_address: !secret ble_conservatory_mac_address
+    bindkey: !secret ble_conservatory_bindkey
+    temperature:
+      name: "Conservatory Temperature"
+    humidity:
+      name: "Conservatory Humidity"
+    battery_level:
+      name: "Conservatory Battery Level"
+  - platform: xiaomi_lywsd03mmc
+    mac_address: !secret ble_kitchen_mac_address
+    bindkey: !secret ble_kitchen_bindkey
+    temperature:
+      name: "Kitchen Temperature"
+    humidity:
+      name: "Kitchen Humidity"
+    battery_level:
+      name: "Kitchen Battery Level"
+  - platform: xiaomi_lywsd03mmc
+    mac_address: !secret ble_loft_upper_mac_address
+    bindkey: !secret ble_loft_upper_bindkey
+    temperature:
+      name: "Loft Upper Temperature"
+    humidity:
+      name: "Loft Upper Humidity"
+    battery_level:
+      name: "Loft Upper Battery Level"
+
+  # RSSI
+  - platform: ble_rssi
+    mac_address: !secret ble_bathroom_mac_address
+    name: "Bathroom Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_bedroom_mac_address
+    name: "Bedroom Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_conservatory_mac_address
+    name: "Conservatory Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_kitchen_mac_address
+    name: "Kitchen Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_loft_lower_mac_address
+    name: "Loft Lower Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_loft_upper_mac_address
+    name: "Loft Upper Temp Sensor RSSI"
+  - platform: ble_rssi
+    mac_address: !secret ble_spare_room_mac_address
+    name: "Spare Room Temp Sensor RSSI"
